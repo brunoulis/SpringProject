@@ -2,31 +2,13 @@ package bruno.luis.springproject.model;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "orders")
 public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String number;
     private Date dateCreation;
     private Date dateShipped;
 
     private double total;
-
-    @ManyToOne
-    private User user;
-
-    @OneToOne(mappedBy = "order")
-    private DetailOrder detail;
 
     public Order() {
     }
@@ -79,33 +61,17 @@ public class Order {
         this.total = total;
     }
 
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
-    public DetailOrder getDetail() {
-        return this.detail;
-    }
-
-    public void setDetail(DetailOrder detail) {
-        this.detail = detail;
-    }
-
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
-                ", number='" + getNumber() + "'" +
-                ", dateCreation='" + getDateCreation() + "'" +
-                ", dateShipped='" + getDateShipped() + "'" +
-                ", total='" + getTotal() + "'" +
-                "}";
+            " id='" + getId() + "'" +
+            ", number='" + getNumber() + "'" +
+            ", dateCreation='" + getDateCreation() + "'" +
+            ", dateShipped='" + getDateShipped() + "'" +
+            ", total='" + getTotal() + "'" +
+            "}";
     }
+
 
 }
