@@ -1,9 +1,19 @@
 package bruno.luis.springproject.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String username;
@@ -13,7 +23,13 @@ public class User {
 	private String tipo;
 	private String password;
 
-	
+	@OneToMany(mappedBy = "user")
+	private List<Product> products;
+
+	@OneToMany(mappedBy = "user")
+	private List<Order> orders;
+
+	// Con cntrl y barra la primer opcion podemos crear el constructor vacio
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
@@ -95,6 +111,22 @@ public class User {
 		this.password = password;
 	}
 
+	public List<Product> getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public String toString() {
 		return "{" +
@@ -108,8 +140,5 @@ public class User {
 				", password='" + getPassword() + "'" +
 				"}";
 	}
-
-
-	
 
 }
