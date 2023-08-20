@@ -2,6 +2,8 @@ package bruno.luis.springproject.service;
 
 import java.util.Optional;
 
+import java.util.List;
+
 import bruno.luis.springproject.model.Product;
 
 public interface ProductService {
@@ -12,5 +14,7 @@ public interface ProductService {
 	public void update(Product product);
 
 	public void delete(Integer id);
+
+	public List<Product> findAll();
 
 }
