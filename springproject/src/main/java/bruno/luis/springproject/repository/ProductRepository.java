@@ -8,4 +8,5 @@ import bruno.luis.springproject.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    
 }
