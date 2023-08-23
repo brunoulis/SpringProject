@@ -1,5 +1,6 @@
 package bruno.luis.springproject.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,13 +19,19 @@ public class UploadFileService {
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(folder + file.getOriginalFilename());
                 Files.write(path, bytes);
-                return path.toString();
+                return file.getOriginalFilename();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return folder;
+        return "default.jpg";
 
+    }
+
+    public void deleteImage(String imageName) throws IOException {
+        String ruta = "images//";
+        File file = new File(ruta + imageName);
+        file.delete();
     }
 
 }
