@@ -1,5 +1,6 @@
 package bruno.luis.springproject.controller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import bruno.luis.springproject.model.Product;
 import bruno.luis.springproject.model.User;
 import bruno.luis.springproject.service.ProductService;
+import bruno.luis.springproject.service.UploadFileService;
 
 @Controller
 @RequestMapping("/products")
@@ -24,6 +28,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UploadFileService upload;
 
     @GetMapping("")
     public String show(Model model) {
@@ -37,17 +44,30 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String save(Product product) {
+    public String save(Product product, @RequestParam("img") MultipartFile file) throws IOException {
         LOGGER.info("Este es el objeto product: {}", product);
         User u = new User(1, "", "", "", "", "", "", "");
         product.setUser(u);
+        // Imagen
+        if (product.getId() == null) {
+            String imageName = upload.saveImage(file);
+            product.setImage(imageName);
+        } else {
+            if (file.isEmpty()) { // Editamos el producto pero no se sube una imagen
+                Product p = new Product();
+                product.setImage(p.getImage());
+            } else { // Editamos el producto y se sube una imagen
+                String imageName = upload.saveImage(file);
+                product.setImage(imageName);
+            }
+        }
         productService.save(product);
         return "redirect:/products";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        Product product= new Product();
+        Product product = new Product();
         Optional<Product> optionalProduct = productService.get(id);
         product = optionalProduct.get();
         LOGGER.info("Este es el objeto product: {}", product);
