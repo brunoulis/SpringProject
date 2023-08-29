@@ -18,13 +18,23 @@ public class UploadFileService {
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(folder + file.getOriginalFilename());
                 Files.write(path, bytes);
-                return path.toString();
+                return file.getOriginalFilename();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return folder;
+        return "default.jpg";
 
+    }
+
+    public void deleteImage(String imageName){
+        try {
+            Path path = Paths.get(folder + imageName);
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }
