@@ -69,17 +69,17 @@ public class ProductController {
 
     @PostMapping("/update")
     public String update(Product product, @RequestParam("img") MultipartFile file) throws IOException {
-        Product p = new Product();
-        p=productService.get(product.getId()).get();
+        Product p = productService.get(product.getId()).orElseThrow(); // Usando orElseThrow para evitar null
         if (file.isEmpty()) { // Editamos el producto pero no se sube una imagen
-            
-        } else { // Cuando se edita tambien la imagen
-            // Eliminamos cuando no sea la imagen por defecto
-            if(!product.getImage().equals("default.jpg")) {
-                //Si se cumple la condicion
+            // No es necesario hacer ninguna acción aquí
+        } else { // Cuando se edita también la imagen
+            // Eliminamos la imagen anterior si no es la imagen por defecto
+            if (!p.getImage().equals("default.jpg")) {
+                // Si se cumple la condición, eliminamos la imagen anterior
                 upload.deleteImage(p.getImage());
             }
 
+            // Guardamos la nueva imagen
             String imageName = upload.saveImage(file);
             product.setImage(imageName);
         }
@@ -89,13 +89,14 @@ public class ProductController {
         return "redirect:/products";
     }
 
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        Product p= new Product();
-        p=productService.get(id).get();
+        Product p = new Product();
+        p = productService.get(id).get();
         // Eliminamos cuando no sea la imagen por defecto
-        if(!p.getImage().equals("default.jpg")) {
-            //Si se cumple la condicion
+        if (!p.getImage().equals("default.jpg")) {
+            // Si se cumple la condicion
             upload.deleteImage(p.getImage());
         }
         productService.delete(id);
