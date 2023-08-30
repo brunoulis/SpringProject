@@ -52,14 +52,6 @@ public class ProductController {
         if (product.getId() == null) {
             String imageName = upload.saveImage(file);
             product.setImage(imageName);
-        } else {
-            if (file.isEmpty()) { // Editamos el producto pero no se sube una imagen
-                Product p = new Product();
-                product.setImage(p.getImage());
-            } else { // Editamos el producto y se sube una imagen
-                String imageName = upload.saveImage(file);
-                product.setImage(imageName);
-            }
         }
         productService.save(product);
         return "redirect:/products";
@@ -76,7 +68,22 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(Product product) {
+    public String update(Product product, @RequestParam("img") MultipartFile file) throws IOException {
+        Product p = new Product();
+        p=productService.get(product.getId()).get();
+        if (file.isEmpty()) { // Editamos el producto pero no se sube una imagen
+            
+        } else { // Cuando se edita tambien la imagen
+            // Eliminamos cuando no sea la imagen por defecto
+            if(!product.getImage().equals("default.jpg")) {
+                //Si se cumple la condicion
+                upload.deleteImage(p.getImage());
+            }
+
+            String imageName = upload.saveImage(file);
+            product.setImage(imageName);
+        }
+
         LOGGER.info("Este es el objeto product: {}", product);
         productService.update(product);
         return "redirect:/products";
@@ -84,6 +91,13 @@ public class ProductController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
+        Product p= new Product();
+        p=productService.get(id).get();
+        // Eliminamos cuando no sea la imagen por defecto
+        if(!p.getImage().equals("default.jpg")) {
+            //Si se cumple la condicion
+            upload.deleteImage(p.getImage());
+        }
         productService.delete(id);
         return "redirect:/products";
     }

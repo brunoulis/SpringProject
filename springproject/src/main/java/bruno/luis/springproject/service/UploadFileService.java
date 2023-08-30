@@ -15,27 +15,18 @@ public class UploadFileService {
 
     public String saveImage(MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(folder + file.getOriginalFilename());
-                Files.write(path, bytes);
-                return file.getOriginalFilename();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(folder + file.getOriginalFilename());
+            Files.write(path, bytes);
+            return file.getOriginalFilename();
         }
         return "default.jpg";
-
     }
 
-    public void deleteImage(String imageName){
-        try {
-            Path path = Paths.get(folder + imageName);
-            Files.deleteIfExists(path);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void deleteImage(String nombre) {
+        String ruta = "images//";
+        File file = new File(ruta + nombre);
+        file.delete();
     }
 
 }
