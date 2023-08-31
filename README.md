@@ -14,6 +14,7 @@ Este repositorio contiene un proyecto de eCommerce desarrollado utilizando varia
 - Deployment (Despliegue)
 - Docker (Contenedores)
 - MySQL (Base de datos)
+- HTML, CSS, JavaScript (Frontend)
 
 ## Descripción
 
