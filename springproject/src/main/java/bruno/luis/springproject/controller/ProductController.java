@@ -75,16 +75,15 @@ public class ProductController {
         } else { // Cuando se edita también la imagen
             // Eliminamos la imagen anterior si no es la imagen por defecto
             if (!p.getImage().equals("default.jpg")) {
-                // Si se cumple la condición, eliminamos la imagen anterior
-                upload.deleteImage(p.getImage());
-            }
-
+				upload.deleteImage(p.getImage());
+			}
             // Guardamos la nueva imagen
             String imageName = upload.saveImage(file);
             product.setImage(imageName);
         }
 
         LOGGER.info("Este es el objeto product: {}", product);
+        product.setUser(p.getUser());
         productService.update(product);
         return "redirect:/products";
     }
