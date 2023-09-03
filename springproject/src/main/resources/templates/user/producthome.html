@@ -55,7 +55,7 @@
                 <ul class="list-group">
                   <li class="list-group-item"><h5 th:text" 'Precio: '+ ${product.price} + ' €'"></h5></li>
                   <li class="list-group-item">
-                    <p>Descripción:</p>
+                    <p th:text=" 'Descripcion: '+ ${product.description}"></p>
                   </li>
                   <li class="list-group-item"><h6>
                     Cantidad: <input type="number" id="quantity" name="quantity" autocomplete="off"
