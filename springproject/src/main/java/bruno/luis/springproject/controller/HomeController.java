@@ -1,5 +1,7 @@
 package bruno.luis.springproject.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import bruno.luis.springproject.model.DetailOrder;
+import bruno.luis.springproject.model.Order;
 import bruno.luis.springproject.model.Product;
 import bruno.luis.springproject.service.ProductService;
 
@@ -23,6 +28,11 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    // Para almacenar los productos que se agregan al carrito
+    List<DetailOrder> details= new ArrayList<DetailOrder>();
+    // Para almacenar el pedido
+    Order order = new Order();
 
     @GetMapping("")
     public String home(Model model) {
@@ -41,8 +51,13 @@ public class HomeController {
     }
 
     @PostMapping("/cart")
-    public String addCart() {
-        
+    public String addCart(@RequestParam Integer id, @RequestParam Integer quantity, Model model) {
+        DetailOrder detail = new DetailOrder();
+        Product product = new Product();
+        double total=0;
+        Optional<Product> optionalProduct = productService.get(id);
+        log.info("Producto añadido: {}", optionalProduct.get());
+        log.info("Cantidad: {}", quantity);
         return "user/carrito";
     }
 
