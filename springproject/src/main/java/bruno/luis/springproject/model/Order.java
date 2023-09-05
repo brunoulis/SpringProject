@@ -20,7 +20,7 @@ public class Order {
     private Date dateCreation;
     private Date dateShipped;
 
-    private double total;
+    private Double total;
 
     @ManyToOne
     private User user;
@@ -31,7 +31,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Integer id, String number, Date dateCreation, Date dateShipped, double total) {
+    public Order(Integer id, String number, Date dateCreation, Date dateShipped, Double total) {
         this.id = id;
         this.number = number;
         this.dateCreation = dateCreation;
@@ -71,11 +71,11 @@ public class Order {
         this.dateShipped = dateShipped;
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return this.total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -87,7 +87,6 @@ public class Order {
         this.user = user;
     }
 
-
     public DetailOrder getDetail() {
         return this.detail;
     }
@@ -95,7 +94,6 @@ public class Order {
     public void setDetail(DetailOrder detail) {
         this.detail = detail;
     }
-
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package bruno.luis.springproject.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -78,6 +79,29 @@ public class HomeController {
         order.setTotal(total);
         model.addAttribute("cart", details);
         model.addAttribute("order", order);
+        return "user/carrito";
+    }
+
+    // Quitar un producto del carrito
+    @GetMapping("/delete/cart/{id}")
+    public String deleteProductCart(@PathVariable Integer id, Model model) {
+        // Lista nueva de productos
+        List<DetailOrder> newOrders = new ArrayList<DetailOrder>();
+        for (DetailOrder detail : details) {
+            if (!Objects.equals(detail.getProduct().getId(), id)) {
+                newOrders.add(detail);
+            }
+        }
+        // Poner la lista nueva con los productos que quedan
+        details = newOrders;
+
+        double sumaTotal = 0;
+        sumaTotal = details.stream().mapToDouble(o -> o.getTotal()).sum();
+
+        order.setTotal(sumaTotal);
+        model.addAttribute("cart", details);
+        model.addAttribute("order", order);
+
         return "user/carrito";
     }
 
