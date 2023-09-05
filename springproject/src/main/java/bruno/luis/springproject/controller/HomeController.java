@@ -59,21 +59,21 @@ public class HomeController {
         log.info("Producto añadido: {}", optionalProduct.get());
         log.info("Cantidad: {}", quantity);
         product = optionalProduct.get();
-        detail.setQuantity(product.getQuantity());
+        detail.setQuantity(quantity);
         detail.setPrice(product.getPrice());
         detail.setName(product.getName());
         detail.setTotal(product.getPrice() * quantity);
         detail.setProduct(product);
 
         // Validar que el producto no se añade dos veces
-        Integer idProduct=product.getId();
+        Integer idProduct = product.getId();
         boolean exist = details.stream().anyMatch(o -> o.getProduct().getId().equals(idProduct));
         if (!exist) {
             details.add(detail);
         }
 
         // Calcular el total
-        total=details.stream().mapToDouble(o -> o.getTotal()).sum();
+        total = details.stream().mapToDouble(o -> o.getTotal()).sum();
 
         order.setTotal(total);
         model.addAttribute("cart", details);
