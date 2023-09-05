@@ -22,7 +22,7 @@ El objetivo de este proyecto es demostrar la implementación de un sitio de come
 
 ## Instalación y Uso
 
-1. Clona este repositorio: `git clone (https://github.com/brunoulis/SpringProject.git)`
+1. Clona este repositorio: `git clone https://github.com/brunoulis/SpringProject.git`
 2. Accede al directorio del proyecto: `cd TuProyecto`
 3. Ejecuta la aplicación: `./mvnw spring-boot:run`
 4. Abre tu navegador y ve a: `http://localhost:8080`
