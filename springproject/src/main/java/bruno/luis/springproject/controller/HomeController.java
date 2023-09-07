@@ -65,6 +65,7 @@ public class HomeController {
         detail.setName(product.getName());
         detail.setTotal(product.getPrice() * quantity);
         detail.setProduct(product);
+        
 
         // Validar que el producto no se añade dos veces
         Integer idProduct = product.getId();
@@ -102,6 +103,13 @@ public class HomeController {
         model.addAttribute("cart", details);
         model.addAttribute("order", order);
 
+        return "user/carrito";
+    }
+
+    @GetMapping("/getCart")
+    public String getCart(Model model) {
+        model.addAttribute("cart", details);
+        model.addAttribute("order", order);
         return "user/carrito";
     }
 
