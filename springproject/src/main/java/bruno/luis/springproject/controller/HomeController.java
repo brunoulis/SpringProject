@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bruno.luis.springproject.model.DetailOrder;
 import bruno.luis.springproject.model.Order;
 import bruno.luis.springproject.model.Product;
+import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.service.IUserService;
 import bruno.luis.springproject.service.ProductService;
 
 @Controller
@@ -29,6 +31,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private IUserService userService;
 
     // Para almacenar los productos que se agregan al carrito
     List<DetailOrder> details = new ArrayList<DetailOrder>();
@@ -114,8 +119,12 @@ public class HomeController {
 
     @GetMapping("/order")
     public String order(Model model) {
+
+        User user = userService.findById(1).get();
+
         model.addAttribute("cart", details);
         model.addAttribute("order", order);
+        model.addAttribute("user", user);
         return "user/overvieworder";
 
     }
