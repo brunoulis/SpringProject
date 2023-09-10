@@ -10,8 +10,7 @@ import bruno.luis.springproject.model.Order;
 import bruno.luis.springproject.repository.IOrderRepository;
 
 @Service
-public class OrderServiceImpl implements IOrderService{
-
+public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private IOrderRepository orderRepository;
@@ -26,41 +25,40 @@ public class OrderServiceImpl implements IOrderService{
         return orderRepository.findAll();
     }
 
-    public String generateNumberOrder(){
-        int num=0;
-        String numberConcat="";
+    public String generateNumberOrder() {
+        int num = 0;
+        String numberConcat = "";
 
-        List<Order> orders=findAll();
+        List<Order> orders = findAll();
 
-        List<Integer> numbers=new ArrayList<Integer>();
+        List<Integer> numbers = new ArrayList<Integer>();
 
         orders.stream().forEach(o -> numbers.add(Integer.parseInt(o.getNumber())));
 
-        if(numbers.isEmpty()){
-            num=1;
-        }else{
-            num=numbers.stream().max(Integer::compare).get()+1;
+        if (numbers.isEmpty()) {
+            num = 1;
+        } else {
+            num = numbers.stream().max(Integer::compare).get() + 1;
         }
 
-        if(num<10){
-
-            numberConcat="00000000"+String.valueOf(num);
-        }else if(num<100){
-            numberConcat="0000000"+String.valueOf(num);
-        }else if(num<1000){
-            numberConcat="000000"+String.valueOf(num);
-        }else if(num<10000){
-            numberConcat="00000"+String.valueOf(num);
-        }else if(num<100000){
-            numberConcat="0000"+String.valueOf(num);
-        }else if(num<1000000){
-            numberConcat="000"+String.valueOf(num);
-        }else if(num<10000000){
-            numberConcat="00"+String.valueOf(num);
-        }else if(num<100000000){
-            numberConcat="0"+String.valueOf(num);
-        }else{
-            numberConcat=String.valueOf(num);
+        if (num < 10) {
+            numberConcat = "00000000" + String.valueOf(num);
+        } else if (num < 100) {
+            numberConcat = "0000000" + String.valueOf(num);
+        } else if (num < 1000) {
+            numberConcat = "000000" + String.valueOf(num);
+        } else if (num < 10000) {
+            numberConcat = "00000" + String.valueOf(num);
+        } else if (num < 100000) {
+            numberConcat = "0000" + String.valueOf(num);
+        } else if (num < 1000000) {
+            numberConcat = "000" + String.valueOf(num);
+        } else if (num < 10000000) {
+            numberConcat = "00" + String.valueOf(num);
+        } else if (num < 100000000) {
+            numberConcat = "0" + String.valueOf(num);
+        } else {
+            numberConcat = String.valueOf(num);
         }
 
         return numberConcat;
