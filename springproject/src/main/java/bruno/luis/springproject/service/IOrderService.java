@@ -6,7 +6,9 @@ import bruno.luis.springproject.model.Order;
 
 public interface IOrderService {
     List<Order> findAll();
+
     Order save(Order order);
 
+    String generateNumberOrder();
 
 }

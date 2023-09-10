@@ -1,6 +1,7 @@
 package bruno.luis.springproject.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,6 +21,8 @@ import bruno.luis.springproject.model.DetailOrder;
 import bruno.luis.springproject.model.Order;
 import bruno.luis.springproject.model.Product;
 import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.service.IDetailOrderService;
+import bruno.luis.springproject.service.IOrderService;
 import bruno.luis.springproject.service.IUserService;
 import bruno.luis.springproject.service.ProductService;
 
@@ -34,6 +37,12 @@ public class HomeController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
+
+    @Autowired
+    private IDetailOrderService detailOrderService;
 
     // Para almacenar los productos que se agregan al carrito
     List<DetailOrder> details = new ArrayList<DetailOrder>();
@@ -127,6 +136,31 @@ public class HomeController {
         model.addAttribute("user", user);
         return "user/overvieworder";
 
+    }
+
+    @GetMapping("/saveOrder")
+    public String saveOrder() {
+        Date creationDate = new Date();
+        order.setDateCreation(creationDate);
+        order.setNumber(orderService.generateNumberOrder());
+
+        // Usuario
+        User user = userService.findById(1).get();
+
+        order.setUser(user);
+        orderService.save(order);
+
+        // Guardar los detalles del pedido
+        for (DetailOrder dt : details) {
+            dt.setOrder(order);
+            detailOrderService.save(dt);
+        }
+
+        // Limpiar lista y orden
+        order = new Order();
+        details.clear();
+
+        return "redirect:/";
     }
 
 }

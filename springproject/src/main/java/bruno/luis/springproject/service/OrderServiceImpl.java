@@ -25,6 +25,7 @@ public class OrderServiceImpl implements IOrderService {
         return orderRepository.findAll();
     }
 
+    @Override
     public String generateNumberOrder() {
         int num = 0;
         String numberConcat = "";
