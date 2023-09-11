@@ -9,7 +9,7 @@ import bruno.luis.springproject.model.User;
 import bruno.luis.springproject.repository.IUserRepository;
 
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IUserRepository userRepository;
@@ -20,6 +20,10 @@ public class UserServiceImpl implements IUserService{
         return userRepository.findById(id);
     }
 
-    
+    @Override
+    public User save(User user) {
+        // TODO Auto-generated method stub
+        return userRepository.save(user);
+    }
 
 }
