@@ -26,4 +26,10 @@ public class UserServiceImpl implements IUserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+        // TODO Auto-generated method stub
+        return userRepository.findByEmail(email);
+    }
+
 }
