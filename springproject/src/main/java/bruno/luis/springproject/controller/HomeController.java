@@ -27,6 +27,7 @@ import bruno.luis.springproject.service.IDetailOrderService;
 import bruno.luis.springproject.service.IOrderService;
 import bruno.luis.springproject.service.IUserService;
 import bruno.luis.springproject.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -52,7 +53,8 @@ public class HomeController {
     Order order = new Order();
 
     @GetMapping("")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
+        log.info("Sesion del Usuario: {}", session.getAttribute("idusuario"));
         model.addAttribute("products", productService.findAll());
         return "user/home";
     }
@@ -129,9 +131,9 @@ public class HomeController {
     }
 
     @GetMapping("/order")
-    public String order(Model model) {
+    public String order(Model model, HttpSession session) {
 
-        User user = userService.findById(1).get();
+        User user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
         model.addAttribute("cart", details);
         model.addAttribute("order", order);
@@ -141,13 +143,14 @@ public class HomeController {
     }
 
     @GetMapping("/saveOrder")
-    public String saveOrder() {
+    public String saveOrder(HttpSession session) {
         Date creationDate = new Date();
         order.setDateCreation(creationDate);
         order.setNumber(orderService.generateNumberOrder());
 
         // Usuario
-        User user = userService.findById(1).get();
+        User user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+
 
         order.setUser(user);
         orderService.save(order);
