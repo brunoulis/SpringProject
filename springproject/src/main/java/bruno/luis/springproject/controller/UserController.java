@@ -47,7 +47,7 @@ public class UserController {
     public String access(User user, HttpSession session) {
         log.info("Accediendo usuario: " + user);
         Optional<User> u = userService.findByEmail(user.getEmail());
-        log.info("Usuario encontrado: " + u);
+        //log.info("Usuario encontrado: " + u);
         if (u.isPresent()) {
             session.setAttribute("idusuario", u.get().getId());
             if (u.get().getType().equals("ADMIN")) {
