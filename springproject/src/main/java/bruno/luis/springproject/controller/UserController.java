@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bruno.luis.springproject.model.User;
@@ -47,7 +48,7 @@ public class UserController {
     public String access(User user, HttpSession session) {
         log.info("Accediendo usuario: " + user);
         Optional<User> u = userService.findByEmail(user.getEmail());
-        //log.info("Usuario encontrado: " + u);
+        // log.info("Usuario encontrado: " + u);
         if (u.isPresent()) {
             session.setAttribute("idusuario", u.get().getId());
             if (u.get().getType().equals("ADMIN")) {
@@ -59,6 +60,12 @@ public class UserController {
             log.info("Usuario no encontrado");
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/shopping")
+    public String getShopping(Model model,HttpSession session) {
+        model.addAttribute("session", session.getAttribute("idusuario"));
+        return "user/shopping";
     }
 
 }
