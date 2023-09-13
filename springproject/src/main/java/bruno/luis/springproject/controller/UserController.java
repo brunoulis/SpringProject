@@ -17,6 +17,7 @@ import ch.qos.logback.classic.Logger;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -76,6 +77,16 @@ public class UserController {
         model.addAttribute("orders", orders);
 
         return "user/shopping";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detailPurchase(@PathVariable Integer id, HttpSession session, Model model) {
+        log.info("Id de la orden: " + id);
+        Optional<Order> order = orderService.findById(id);
+        model.addAttribute("details", order.get().getDetail());
+        //Sesion
+        model.addAttribute("session", session.getAttribute("idusuario"));
+        return "user/detailpurchase";
     }
 
 }
