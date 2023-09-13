@@ -1,5 +1,6 @@
 package bruno.luis.springproject.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.model.Order;
+import bruno.luis.springproject.service.IOrderService;
 import bruno.luis.springproject.service.IUserService;
 import ch.qos.logback.classic.Logger;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +28,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
 
     @GetMapping("/register")
     public String create() {
@@ -63,8 +69,12 @@ public class UserController {
     }
 
     @GetMapping("/shopping")
-    public String getShopping(Model model,HttpSession session) {
+    public String getShopping(Model model, HttpSession session) {
         model.addAttribute("session", session.getAttribute("idusuario"));
+        User user=userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+        List<Order> orders = orderService.findByUser(user);
+        model.addAttribute("orders", orders);
+
         return "user/shopping";
     }
 

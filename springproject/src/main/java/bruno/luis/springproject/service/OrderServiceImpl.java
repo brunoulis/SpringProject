@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bruno.luis.springproject.model.Order;
+import bruno.luis.springproject.model.User;
 import bruno.luis.springproject.repository.IOrderRepository;
 
 @Service
@@ -63,6 +64,12 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         return numberConcat;
+    }
+
+    @Override
+    public List<Order> findByUser(User user) {
+        // TODO Auto-generated method stub
+        return orderRepository.findByUser(user);
     }
 
 }

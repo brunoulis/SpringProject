@@ -1,13 +1,14 @@
 package bruno.luis.springproject.model;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,8 +26,8 @@ public class Order {
     @ManyToOne
     private User user;
 
-    @OneToOne(mappedBy = "order")
-    private DetailOrder detail;
+    @OneToMany(mappedBy = "order")
+    private List<DetailOrder> detail;
 
     public Order() {
     }
@@ -87,13 +88,15 @@ public class Order {
         this.user = user;
     }
 
-    public DetailOrder getDetail() {
+
+    public List<DetailOrder> getDetail() {
         return this.detail;
     }
 
-    public void setDetail(DetailOrder detail) {
+    public void setDetail(List<DetailOrder> detail) {
         this.detail = detail;
     }
+    
 
     @Override
     public String toString() {
