@@ -16,14 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.servlet.http.HttpSession;
-
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private IUserService userService;
 
-    @Autowired
     private BCryptPasswordEncoder encoder;
 
     @Autowired
