@@ -1,4 +1,4 @@
-# SpringProject - Proyecto eCommerce (Work In Progress)
+# SpringProject - Proyecto eCommerce
 
 Este repositorio contiene un proyecto de eCommerce desarrollado utilizando varias tecnologías del ecosistema Spring. El proyecto aprovecha las capacidades de Spring Framework, Spring Boot y otras tecnologías relacionadas para construir una plataforma de comercio electrónico.
 

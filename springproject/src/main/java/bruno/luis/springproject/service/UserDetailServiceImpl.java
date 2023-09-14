@@ -70,7 +70,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             /*
              * Este método crea un objeto `User` a partir del modelo de usuario.
              */
-            return User.builder().username(user.getName()).password(encoder.encode(user.getPassword()))
+            return User.builder().username(user.getName()).password(user.getPassword())
                     .roles(user.getType()).build();
 
         } else {

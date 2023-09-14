@@ -35,8 +35,7 @@ public class UserController {
     @Autowired
     private IOrderService orderService;
 
-    
-    BCryptPasswordEncoder passEncoder= new BCryptPasswordEncoder();
+    BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/register")
     public String create() {
@@ -57,10 +56,10 @@ public class UserController {
         return "user/login";
     }
 
-    @PostMapping("/access")
+    @GetMapping("/access")
     public String access(UserModel user, HttpSession session) {
         log.info("Accediendo usuario: " + user);
-        Optional<UserModel> u = userService.findByEmail(user.getEmail());
+        Optional<UserModel> u = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString()));
         // log.info("Usuario encontrado: " + u);
         if (u.isPresent()) {
             session.setAttribute("idusuario", u.get().getId());
