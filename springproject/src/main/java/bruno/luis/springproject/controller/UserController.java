@@ -3,6 +3,7 @@ package bruno.luis.springproject.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import bruno.luis.springproject.model.User;
 import bruno.luis.springproject.model.Order;
 import bruno.luis.springproject.service.IOrderService;
 import bruno.luis.springproject.service.IUserService;
-import ch.qos.logback.classic.Logger;
+
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/user")
 public class UserController {
 
-    private final Logger log = (Logger) LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private IUserService userService;
@@ -72,7 +73,7 @@ public class UserController {
     @GetMapping("/shopping")
     public String getShopping(Model model, HttpSession session) {
         model.addAttribute("session", session.getAttribute("idusuario"));
-        User user=userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+        User user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
         List<Order> orders = orderService.findByUser(user);
         model.addAttribute("orders", orders);
 
@@ -84,14 +85,15 @@ public class UserController {
         log.info("Id de la orden: " + id);
         Optional<Order> order = orderService.findById(id);
         model.addAttribute("details", order.get().getDetail());
-        //Sesion
+        // Sesion
         model.addAttribute("session", session.getAttribute("idusuario"));
         return "user/detailpurchase";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("idusuario");;
+        session.removeAttribute("idusuario");
+        ;
         return "redirect:/";
     }
 
