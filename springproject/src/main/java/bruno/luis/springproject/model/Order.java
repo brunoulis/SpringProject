@@ -24,7 +24,7 @@ public class Order {
     private Double total;
 
     @ManyToOne
-    private User user;
+    private UserModel user;
 
     @OneToMany(mappedBy = "order")
     private List<DetailOrder> detail;
@@ -80,14 +80,13 @@ public class Order {
         this.total = total;
     }
 
-    public User getUser() {
+    public UserModel getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserModel user) {
         this.user = user;
     }
-
 
     public List<DetailOrder> getDetail() {
         return this.detail;
@@ -96,7 +95,6 @@ public class Order {
     public void setDetail(List<DetailOrder> detail) {
         this.detail = detail;
     }
-    
 
     @Override
     public String toString() {

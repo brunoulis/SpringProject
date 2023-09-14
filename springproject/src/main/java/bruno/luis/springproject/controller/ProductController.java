@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import bruno.luis.springproject.model.Product;
-import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.model.UserModel;
 import bruno.luis.springproject.service.IUserService;
 import bruno.luis.springproject.service.ProductService;
 import bruno.luis.springproject.service.UploadFileService;
@@ -49,9 +49,10 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String save(Product product, @RequestParam("img") MultipartFile file , HttpSession session) throws IOException {
+    public String save(Product product, @RequestParam("img") MultipartFile file, HttpSession session)
+            throws IOException {
         LOGGER.info("Este es el objeto product: {}", product);
-        User u = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+        UserModel u = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
         product.setUser(u);
         // Imagen
         if (product.getId() == null) {
@@ -80,8 +81,8 @@ public class ProductController {
         } else { // Cuando se edita también la imagen
             // Eliminamos la imagen anterior si no es la imagen por defecto
             if (!p.getImage().equals("default.jpg")) {
-				upload.deleteImage(p.getImage());
-			}
+                upload.deleteImage(p.getImage());
+            }
             // Guardamos la nueva imagen
             String imageName = upload.saveImage(file);
             product.setImage(imageName);
@@ -92,7 +93,6 @@ public class ProductController {
         productService.update(product);
         return "redirect:/products";
     }
-
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {

@@ -20,13 +20,13 @@ public class Product {
     private Integer quantity;
 
     @ManyToOne
-    private User user;
+    private UserModel user;
 
     public Product() {
     }
 
-
-    public Product(Integer id, String name, String description, String image, Double price, Integer quantity, User user) {
+    public Product(Integer id, String name, String description, String image, Double price, Integer quantity,
+            UserModel user) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -35,7 +35,6 @@ public class Product {
         this.quantity = quantity;
         this.user = user;
     }
-    
 
     public Integer getId() {
         return this.id;
@@ -85,28 +84,24 @@ public class Product {
         this.quantity = quantity;
     }
 
-
-    public User getUser() {
+    public UserModel getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserModel user) {
         this.user = user;
     }
-
-
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", image='" + getImage() + "'" +
-            ", price='" + getPrice() + "'" +
-            ", quantity='" + getQuantity() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", name='" + getName() + "'" +
+                ", description='" + getDescription() + "'" +
+                ", image='" + getImage() + "'" +
+                ", price='" + getPrice() + "'" +
+                ", quantity='" + getQuantity() + "'" +
+                "}";
     }
-
 
 }

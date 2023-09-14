@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,10 +30,10 @@ public class User {
     private List<Order> orders;
 
     // Constructor vacío
-    public User() {
+    public UserModel() {
     }
 
-    public User(Integer id, String name, String username, String email, String address, String phone,
+    public UserModel(Integer id, String name, String username, String email, String address, String phone,
             String type, String password) {
         super();
         this.id = id;

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bruno.luis.springproject.model.DetailOrder;
 import bruno.luis.springproject.model.Order;
 import bruno.luis.springproject.model.Product;
-import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.model.UserModel;
 import bruno.luis.springproject.service.IDetailOrderService;
 import bruno.luis.springproject.service.IOrderService;
 import bruno.luis.springproject.service.IUserService;
@@ -139,7 +139,7 @@ public class HomeController {
     @GetMapping("/order")
     public String order(Model model, HttpSession session) {
 
-        User user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+        UserModel user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
         model.addAttribute("cart", details);
         model.addAttribute("order", order);
@@ -155,7 +155,7 @@ public class HomeController {
         order.setNumber(orderService.generateNumberOrder());
 
         // Usuario
-        User user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+        UserModel user = userService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
         order.setUser(user);
         orderService.save(order);

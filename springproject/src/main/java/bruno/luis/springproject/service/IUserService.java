@@ -4,12 +4,15 @@ import java.util.Optional;
 
 import java.util.List;
 
-import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.model.UserModel;
 
 public interface IUserService {
-    List<User> findAll();
-    Optional<User> findById(Integer id);
-    User save(User user);
-    Optional<User> findByEmail(String email);
+    List<UserModel> findAll();
+
+    Optional<UserModel> findById(Integer id);
+
+    UserModel save(UserModel user);
+
+    Optional<UserModel> findByEmail(String email);
 
 }

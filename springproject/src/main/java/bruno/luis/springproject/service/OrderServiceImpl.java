@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bruno.luis.springproject.model.Order;
-import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.model.UserModel;
 import bruno.luis.springproject.repository.IOrderRepository;
 
 @Service
@@ -68,7 +68,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public List<Order> findByUser(User user) {
+    public List<Order> findByUser(UserModel user) {
         // TODO Auto-generated method stub
         return orderRepository.findByUser(user);
     }

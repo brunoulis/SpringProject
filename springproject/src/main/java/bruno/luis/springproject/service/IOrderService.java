@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import bruno.luis.springproject.model.Order;
-import bruno.luis.springproject.model.User;
+import bruno.luis.springproject.model.UserModel;
 
 public interface IOrderService {
     List<Order> findAll();
@@ -13,7 +13,7 @@ public interface IOrderService {
 
     String generateNumberOrder();
 
-    List<Order> findByUser(User user);
+    List<Order> findByUser(UserModel user);
 
     Optional<Order> findById(Integer id);
 
