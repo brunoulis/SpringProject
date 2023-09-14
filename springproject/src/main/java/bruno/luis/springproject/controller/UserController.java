@@ -35,7 +35,7 @@ public class UserController {
     @Autowired
     private IOrderService orderService;
 
-    @Autowired
+    
     BCryptPasswordEncoder passEncoder= new BCryptPasswordEncoder();
 
     @GetMapping("/register")
